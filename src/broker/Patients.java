@@ -310,6 +310,10 @@ public class Patients {
                 ", province_index=" + province_index +
                 ", infection_case_index=" + infection_case_index +
                 ", state_index=" + state_index +
+                ", symptoms_date_index=" + symptoms_date_index +
+                ", confirmed_date_index=" + confirmed_date_index +
+                ", released_date_index=" + released_date_index +
+                ", deceased_date_index=" + deceased_date_index +
                 '}';
     }
 }
