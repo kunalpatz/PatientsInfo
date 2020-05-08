@@ -4,12 +4,14 @@ import broker.Patients;
 import engine.CSVHandler;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class launcher {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         List<Patients> patients = CSVHandler.readFromFile("PatientInfo.csv");
 
         //{male=1, female=2, Undefined=3}
@@ -110,11 +112,61 @@ public class launcher {
             p.setState_index(currentValue);
         }).collect(Collectors.toList());
 
+        // {01=1, -1=2, 02=3, 03=4, 04=5}
+        Map<String, Integer> symptoms_date = new LinkedHashMap<>();
+        List<Patients> symptoms_dateIndexedList = patients.stream().peek(p -> {
+            Integer currentValue = symptoms_date.get(p.getSymptom_onset_date());
+            if (currentValue == null) {
+                currentValue = symptoms_date.size() + 1;
+                symptoms_date.put(p.getSymptom_onset_date(), currentValue);
+            }
+            p.setSymptoms_date_index(currentValue);
+        }).collect(Collectors.toList());
+
+
+        // {01=1, 02=2, 03=3, 04=4, -1=5}
+        Map<String, Integer> confirmed_date = new LinkedHashMap<>();
+        List<Patients> confirmed_dateIndexedList = patients.stream().peek(p -> {
+            Integer currentValue = confirmed_date.get(p.getConfirmed_date());
+            if (currentValue == null) {
+                currentValue = confirmed_date.size() + 1;
+                confirmed_date.put(p.getConfirmed_date(), currentValue);
+            }
+            p.setConfirmed_date_index(currentValue);
+        }).collect(Collectors.toList());
+
+        //{02=1, 03=2, -1=3, 04=4}
+        Map<String, Integer> released_date = new LinkedHashMap<>();
+        List<Patients> released_dateIndexedList = patients.stream().peek(p -> {
+            Integer currentValue = released_date.get(p.getReleased_date());
+            if (currentValue == null) {
+                currentValue = released_date.size() + 1;
+                released_date.put(p.getReleased_date(), currentValue);
+            }
+            p.setReleased_date_index(currentValue);
+        }).collect(Collectors.toList());
+
+
+        //{-1=1, 02=2, 03=3, 04=4}
+        Map<String, Integer> deceased_date = new LinkedHashMap<>();
+        List<Patients> deceased_dateIndexedList = patients.stream().peek(p -> {
+            Integer currentValue = deceased_date.get(p.getDeceased_date());
+            if (currentValue == null) {
+                currentValue = deceased_date.size() + 1;
+                deceased_date.put(p.getDeceased_date(), currentValue);
+            }
+            p.setDeceased_date_index(currentValue);
+        }).collect(Collectors.toList());
+
+
+
 
         Double[][] doubleMatrix = to2DDoubleMatrix(genderIndexedList, p -> {
             return new Double[] {Double.valueOf(p.getGender_index()), Double.valueOf(p.getAge_group_index()), Double.valueOf(p.getDisease_index()),
                     Double.valueOf(p.getCountry_index()), Double.valueOf(p.getProvince_index()),
-                    Double.valueOf(p.getInfection_case_index()), Double.valueOf(p.getState_index())};
+                    Double.valueOf(p.getInfection_case_index()), Double.valueOf(p.getState_index()),
+                    Double.valueOf(p.getSymptoms_date_index()), Double.valueOf(p.getConfirmed_date_index()),
+                    Double.valueOf(p.getReleased_date_index()), Double.valueOf(p.getDeceased_date_index())};
         });
 
         printDoubleMatrix(doubleMatrix);

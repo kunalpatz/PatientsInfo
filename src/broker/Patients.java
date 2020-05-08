@@ -28,6 +28,45 @@ public class Patients {
     private Integer province_index;
     private Integer infection_case_index;
     private Integer state_index;
+    private Integer symptoms_date_index;
+    private Integer confirmed_date_index;
+    private Integer released_date_index;
+    private Integer deceased_date_index;
+
+
+    public Integer getConfirmed_date_index() {
+        return confirmed_date_index;
+    }
+
+    public void setConfirmed_date_index(Integer confirmed_date_index) {
+        this.confirmed_date_index = confirmed_date_index;
+    }
+
+    public Integer getReleased_date_index() {
+        return released_date_index;
+    }
+
+    public void setReleased_date_index(Integer released_date_index) {
+        this.released_date_index = released_date_index;
+    }
+
+    public Integer getDeceased_date_index() {
+        return deceased_date_index;
+    }
+
+    public void setDeceased_date_index(Integer deceased_date_index) {
+        this.deceased_date_index = deceased_date_index;
+    }
+
+    public Integer getSymptoms_date_index() {
+        return symptoms_date_index;
+    }
+
+    public void setSymptoms_date_index(Integer symptoms_date_index) {
+        this.symptoms_date_index = symptoms_date_index;
+    }
+
+
 
     public Integer getState_index() {
         return state_index;

@@ -75,25 +75,25 @@ public class CSVHandler {
             }
 
             if (parts[13].isBlank()){
-                patient.setSymptom_onset_date("0000-00-00");
+                patient.setSymptom_onset_date("-1");
             } else {
-                patient.setSymptom_onset_date(parts[13]);
+                patient.setSymptom_onset_date(parts[13].split("-")[1]);
             }
 
             if (parts[14].isBlank()){
-                patient.setConfirmed_date("0000-00-00");
+                patient.setConfirmed_date("-1");
             } else {
-                patient.setConfirmed_date(parts[14]);
+                patient.setConfirmed_date(parts[14].split("-")[1]);
             }
             if (parts[15].isBlank()){
-                patient.setReleased_date("0000-00-00");
+                patient.setReleased_date("-1");
             } else {
-                patient.setReleased_date(parts[15]);
+                patient.setReleased_date(parts[15].split("-")[1]);
             }
             if (parts[16].isBlank()){
-                patient.setDeceased_date("0000-00-00");
+                patient.setDeceased_date("-1");
             } else {
-                patient.setDeceased_date(parts[16]);
+                patient.setDeceased_date(parts[16].split("-")[1]);
             }
             patient.setState(parts[17]);
 
